@@ -49,3 +49,9 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'remotipart', github: 'mshibuya/remotipart'
 gem 'rails_admin', '>= 1.0.0.rc'
+
+gem 'grape', '~> 0.16.2'
+gem 'grape-swagger', '~> 0.22.0'
+gem 'grape-swagger-entity'
+gem 'grape-swagger-representable'
+gem 'grape-swagger-rails'
