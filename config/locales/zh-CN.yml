@@ -2,7 +2,16 @@ zh-CN:
   activerecord:
     models:
       admin_user: 管理员
+      category: '分类'
     attributes:
       admin_user:
         id: 编号
         password: 密码
+        created_at: 创建时间
+        updated_at: 更新时间
+      category:
+        id: 编号
+        name: 名称
+        description: 描述
+        created_at: 创建时间
+        updated_at: 更新时间
