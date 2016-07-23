@@ -57,3 +57,5 @@ gem 'grape-swagger-representable'
 gem 'grape-swagger-rails'
 
 gem 'devise'
+gem 'devise-bootstrap-views'
+gem 'bootstrap-sass', '~> 3.3.6'
