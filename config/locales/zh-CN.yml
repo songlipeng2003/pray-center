@@ -3,6 +3,7 @@ zh-CN:
     models:
       admin_user: 管理员
       category: '分类'
+      post: '帖子'
     attributes:
       admin_user:
         id: 编号
@@ -12,6 +13,16 @@ zh-CN:
       category:
         id: 编号
         name: 名称
+        description: 描述
+        created_at: 创建时间
+        updated_at: 更新时间
+      post:
+        id: 编号
+        user: 用户
+        category: 分类
+        title: 标题
+        content: 内容
+        pray_number: 代祷人数
         description: 描述
         created_at: 创建时间
         updated_at: 更新时间
