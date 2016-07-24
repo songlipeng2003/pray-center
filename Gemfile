@@ -59,3 +59,6 @@ gem 'grape-swagger-rails'
 gem 'devise'
 gem 'devise-bootstrap-views'
 gem 'bootstrap-sass', '~> 3.3.6'
+
+gem 'sidekiq', github: 'mperham/sidekiq', branch: 'rails5'
+gem 'sinatra', github: 'sinatra/sinatra', :require => false

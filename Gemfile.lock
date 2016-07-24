@@ -1,8 +1,29 @@
 GIT
+  remote: git://github.com/mperham/sidekiq.git
+  revision: 871626c9b37a7a51213216379fd3eebfb4f305a3
+  branch: rails5
+  specs:
+    sidekiq (4.2.0)
+      concurrent-ruby (~> 1.0)
+      connection_pool (~> 2.2, >= 2.2.0)
+      redis (~> 3.2, >= 3.2.1)
+      sinatra (>= 1.4.7)
+
+GIT
   remote: git://github.com/mshibuya/remotipart.git
   revision: 88d9a7d55bde66acb6cf3a3c6036a5a1fc991d5e
   specs:
     remotipart (1.2.1)
+
+GIT
+  remote: git://github.com/sinatra/sinatra.git
+  revision: 751f2a7a8f26a01f984cecbfe1385ecc0feda9e0
+  specs:
+    sinatra (2.0.0.pre.alpha)
+      mustermann (~> 0.4)
+      rack (~> 2.0)
+      rack-protection (~> 1.5)
+      tilt (~> 2.0)
 
 GEM
   remote: https://rubygems.org/
@@ -67,6 +88,7 @@ GEM
       execjs
     coffee-script-source (1.10.0)
     concurrent-ruby (1.0.2)
+    connection_pool (2.2.0)
     debug_inspector (0.0.2)
     declarative (0.0.8)
       uber (>= 0.0.15)
@@ -143,6 +165,8 @@ GEM
     minitest (5.9.0)
     multi_json (1.12.1)
     multi_xml (0.5.5)
+    mustermann (0.4.0)
+      tool (~> 0.2)
     mustermann19 (0.4.4)
       enumerable-lazy
     mysql2 (0.4.4)
@@ -160,6 +184,8 @@ GEM
     rack-pjax (1.0.0)
       nokogiri (~> 1.5)
       rack (>= 1.1)
+    rack-protection (1.5.3)
+      rack
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (5.0.0)
@@ -202,6 +228,7 @@ GEM
     rb-fsevent (0.9.7)
     rb-inotify (0.9.7)
       ffi (>= 0.5.0)
+    redis (3.3.1)
     representable (3.0.0)
       declarative (~> 0.0.5)
       uber (~> 0.0.15)
@@ -228,6 +255,7 @@ GEM
     thor (0.19.1)
     thread_safe (0.3.5)
     tilt (2.0.5)
+    tool (0.2.3)
     turbolinks (5.0.0)
       turbolinks-source (~> 5)
     turbolinks-source (5.0.0)
@@ -275,6 +303,8 @@ DEPENDENCIES
   rails_admin (>= 1.0.0.rc)
   remotipart!
   sass-rails (~> 5.0)
+  sidekiq!
+  sinatra!
   spring
   spring-watcher-listen (~> 2.0.0)
   turbolinks (~> 5)
