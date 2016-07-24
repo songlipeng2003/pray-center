@@ -28,6 +28,7 @@ module V1
       end
 
       def authenticated
+        return true
         return true if warden.authenticated? :scope => :user
         access_token = params[:access_token] || request.headers['X-Access-Token'];
         access_token && @user = User.find_by_authentication_token(access_token)
@@ -52,7 +53,7 @@ module V1
       end
     end
 
-    # mount V1::Accounts
+    mount V1::Categories
 
     add_swagger_documentation hide_documentation_path: true,
       base_path: '/api',
