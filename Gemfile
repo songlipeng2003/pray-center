@@ -62,3 +62,5 @@ gem 'bootstrap-sass', '~> 3.3.6'
 
 gem 'sidekiq', github: 'mperham/sidekiq', branch: 'rails5'
 gem 'sinatra', github: 'sinatra/sinatra', :require => false
+
+gem 'rails-i18n', '~> 5.0.0'
