@@ -10,6 +10,18 @@ module V1
       # error!("401 Unauthorized", 401) unless current_application
     end
 
+    rescue_from Grape::Exceptions::ValidationErrors do |e|
+      error!(e.message, 422)
+    end
+
+    rescue_from ActiveRecord::RecordNotFound do |e|
+      error!(e.message, 404)
+    end
+
+    rescue_from ActiveRecord::RecordInvalid do |e|
+      error!(e.message, 422)
+    end
+
     helpers do
       def logger
         API.logger
@@ -56,6 +68,7 @@ module V1
     mount V1::Categories
     mount V1::AuthCodes
     mount V1::Accounts
+    mount V1::Posts
 
     add_swagger_documentation hide_documentation_path: true,
       base_path: '/api',
