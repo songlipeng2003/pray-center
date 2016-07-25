@@ -64,3 +64,5 @@ gem 'sidekiq', github: 'mperham/sidekiq', branch: 'rails5'
 gem 'sinatra', github: 'sinatra/sinatra', :require => false
 
 gem 'rails-i18n', '~> 5.0.0'
+
+gem 'isms-ruby'

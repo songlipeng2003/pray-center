@@ -2,6 +2,7 @@ class SmsJob < ApplicationJob
   queue_as :default
 
   def perform(phone, code)
-    # Do something later
+    client = ISMS::Client.new
+    response = client.send_sms("你的验证码是：#{code}", phone)
   end
 end
