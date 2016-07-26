@@ -3,7 +3,19 @@ module V1
     class User < Grape::Entity
       expose :id
       expose :phone
+      expose :name
+      expose :address
+      expose :gender
+      expose :birth
+      expose :education
+      expose :job
+      expose :church
+      expose :church_service
+      expose :rebirth
+      expose :area
+      expose :period
       expose :created_at
+      expose :authentication_token
     end
   end
 end

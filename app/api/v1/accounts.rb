@@ -29,39 +29,43 @@ module V1
         end
       end
 
-      # desc "登陆"
-      # params do
-      #   requires :phone, type: String, desc: "手机号"
-      #   requires :code, type: String, desc: "验证码"
-      #   optional :device, type: String, desc: "设备唯一编号"
-      #   optional :device_model, type: String, desc: "设备型号，例如：小米Note"
-      #   optional :device_type, type: String, desc: "设备类型，android或者ios"
-      #   optional :jpush, type: String, desc: "极光推送ID"
-      # end
-      # post 'login' do
-      #   phone = params[:phone]
-      #   user = User.where('phone=?', phone).first
+      desc "登陆"
+      params do
+        requires :phone, type: String, desc: "手机号"
+        requires :password, type: String, desc: "密码"
+        optional :device, type: String, desc: "设备唯一编号"
+        optional :device_model, type: String, desc: "设备型号，例如：小米Note"
+        optional :device_type, type: String, desc: "设备类型，android或者ios"
+        optional :jpush, type: String, desc: "极光推送ID"
+      end
+      post 'login' do
+        phone = params[:phone]
+        user = User.where('phone=?', phone).first
 
-      #   user.update_tracked_fields!(warden.request)
+        if user && user.valid_password?(params[:password])
+          user.update_tracked_fields!(warden.request)
 
-      #   # user.login_histories.create!({
-      #   #   ip: client_ip,
-      #   #   device: params[:device],
-      #   #   device_model: params[:device_model],
-      #   #   device_type: params[:device_type],
-      #   #   application: current_application
-      #   # })
+          present user, with: V1::Entities::User
+        else
+          error!({ error: '账号或密码错误' }, 422)
+        end
 
-      #   # unless params[:device].blank?
-      #   #   device = user.devices.where(code: params[:device]).first_or_create! do |device|
-      #   #     device.device_type = params[:device_type]
-      #   #   end
-      #   #   device.jpush = params[:jpush]
-      #   #   device.save!
-      #   # end
+        # user.login_histories.create!({
+        #   ip: client_ip,
+        #   device: params[:device],
+        #   device_model: params[:device_model],
+        #   device_type: params[:device_type],
+        #   application: current_application
+        # })
 
-      #   present user, with: V1::Entities::User
-      # end
+        # unless params[:device].blank?
+        #   device = user.devices.where(code: params[:device]).first_or_create! do |device|
+        #     device.device_type = params[:device_type]
+        #   end
+        #   device.jpush = params[:jpush]
+        #   device.save!
+        # end
+      end
     end
   end
 end

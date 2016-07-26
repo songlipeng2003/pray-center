@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160724085801) do
+ActiveRecord::Schema.define(version: 20160726142037) do
 
   create_table "admin_users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "email",                  default: "", null: false
@@ -73,18 +73,19 @@ ActiveRecord::Schema.define(version: 20160724085801) do
     t.date     "rebirth"
     t.integer  "area"
     t.string   "period"
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
-    t.string   "email",              default: "", null: false
-    t.string   "encrypted_password", default: "", null: false
-    t.integer  "sign_in_count",      default: 0,  null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+    t.string   "email",                default: "", null: false
+    t.string   "encrypted_password",   default: "", null: false
+    t.integer  "sign_in_count",        default: 0,  null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.integer  "failed_attempts",    default: 0,  null: false
+    t.integer  "failed_attempts",      default: 0,  null: false
     t.string   "unlock_token"
     t.datetime "locked_at"
+    t.string   "authentication_token"
   end
 
   add_foreign_key "posts", "categories"
