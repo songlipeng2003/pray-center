@@ -4,6 +4,8 @@ zh-CN:
       admin_user: 管理员
       category: '分类'
       post: '帖子'
+      user: '用户'
+      auth_code: '验证码'
     attributes:
       admin_user:
         id: 编号
@@ -24,5 +26,29 @@ zh-CN:
         content: 内容
         pray_number: 代祷人数
         description: 描述
+        created_at: 创建时间
+        updated_at: 更新时间
+      user:
+        id: 编号
+        name: 名称
+        phone: 电话
+        address: 地址
+        gender: 性别
+        birth: 生日
+        education: 学历
+        job: 工作
+        church: 教会
+        church_service: 教会服侍
+        rebirth: 受洗日期
+        area: 区域
+        period: 时间段
+        created_at: 创建时间
+        updated_at: 更新时间
+        password: 密码
+      auth_code:
+        id: 编号
+        phone: 电话
+        code: 验证码
+        expired_at: 过期时间
         created_at: 创建时间
         updated_at: 更新时间
