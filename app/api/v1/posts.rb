@@ -33,24 +33,30 @@ module V1
 
       desc "添加帖子",
         http_codes: [
-          [201, '成功', V1::Entities::Post]
+          [201, '成功', V1::Entities::Post],
+          [422, 'Unprocesable entity', V1::Entities::Error]
         ]
       params do
         optional 'X-Access-Token', type: String, desc: 'Token', documentation: { in: :header }
+        requires :category_id, type: Integer, desc: "分类"
         requires :title, type: String, desc: "标题"
         requires :content, type: String, desc: "内容"
       end
       post do
-        safe_params = clean_params(params).permit(:title, :content)
-        post = Post.new(safe_params)
+        safe_params = clean_params(params).permit(:title, :content, :category_id)
+        post = current_user.posts.new(safe_params)
         # post.application = current_application
-        post.save
-        present post, with: V1::Entities::Post
+        if post.save
+          present post, with: V1::Entities::Post
+        else
+          error!({ error: post.errors.full_messages.first }, 422)
+        end
       end
 
       desc "编辑帖子",
         http_codes: [
-          [201, '成功', V1::Entities::Post]
+          [201, '成功', V1::Entities::Post],
+          [422, 'Unprocesable entity', V1::Entities::Error]
         ]
       params do
         optional 'X-Access-Token', type: String, desc: 'Token', documentation: { in: :header }

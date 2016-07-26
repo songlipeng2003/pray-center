@@ -4,6 +4,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :rememberable, :trackable, :validatable, :lockable
 
+  has_many :posts
+
   def email_required?
     false
   end
