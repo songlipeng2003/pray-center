@@ -68,6 +68,7 @@ module V1
     mount V1::AuthCodes
     mount V1::Accounts
     mount V1::Posts
+    mount V1::Users
 
     add_swagger_documentation hide_documentation_path: true,
       base_path: '/api',
