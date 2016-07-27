@@ -20,7 +20,7 @@ module V1
           # user.application = current_application
 
           if user.save
-            present user, with: V1::Entities::User
+            present user, with: V1::Entities::LoginUser
           else
             error!({ error: user.errors.full_messages.first }, 422)
           end
@@ -45,7 +45,7 @@ module V1
         if user && user.valid_password?(params[:password])
           user.update_tracked_fields!(warden.request)
 
-          present user, with: V1::Entities::User
+          present user, with: V1::Entities::LoginUser
         else
           error!({ error: '账号或密码错误' }, 422)
         end

@@ -15,7 +15,6 @@ module V1
       expose :area
       expose :period
       expose :created_at
-      expose :authentication_token
     end
   end
 end

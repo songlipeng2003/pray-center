@@ -67,6 +67,7 @@ module V1
     mount V1::Categories
     mount V1::AuthCodes
     mount V1::Accounts
+    mount V1::FavoritedUsers
     mount V1::Posts
     mount V1::Users
 
