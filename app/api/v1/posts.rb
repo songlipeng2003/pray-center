@@ -12,9 +12,19 @@ module V1
         ]
       params do
         optional 'X-Access-Token', type: String, desc: 'Token', documentation: { in: :header }
+        optional 'category_id', type: Integer, desc: '分类'
+        optional 'region_id', type: Integer, desc: '区域'
+        optional 'sort', type: String, values: ['id', 'pray_number'], default: 'id', desc: '排序字段'
+        optional 'order', type: String, values: ['desc', 'asc'], default: 'desc', desc: '排列方式'
       end
       get do
-        present Post.order('id DESC').all, with: V1::Entities::Post
+        query = Post.where('1=1')
+        query = query.where(category_id: params[:category_id]) if params[:category_id]
+        query = query.where(region_id: params[:region_id]) if params[:region_id]
+        query = query.order(params[:sort] => params[:order])
+        result = query.all
+
+        present result, with: V1::Entities::Post
       end
 
       desc "帖子详情",
