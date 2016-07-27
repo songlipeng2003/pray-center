@@ -39,11 +39,12 @@ module V1
       params do
         optional 'X-Access-Token', type: String, desc: 'Token', documentation: { in: :header }
         requires :category_id, type: Integer, desc: "分类"
+        requires :region_id, type: Integer, desc: "区域"
         requires :title, type: String, desc: "标题"
         requires :content, type: String, desc: "内容"
       end
       post do
-        safe_params = clean_params(params).permit(:title, :content, :category_id)
+        safe_params = clean_params(params).permit(:title, :content, :category_id, :region_id)
         post = current_user.posts.new(safe_params)
         # post.application = current_application
         if post.save

@@ -6,6 +6,7 @@ zh-CN:
       post: '帖子'
       user: '用户'
       auth_code: '验证码'
+      region: '区域'
     attributes:
       admin_user:
         id: 编号
@@ -22,6 +23,7 @@ zh-CN:
         id: 编号
         user: 用户
         category: 分类
+        region: 区域
         title: 标题
         content: 内容
         pray_number: 代祷人数
@@ -50,5 +52,10 @@ zh-CN:
         phone: 电话
         code: 验证码
         expired_at: 过期时间
+        created_at: 创建时间
+        updated_at: 更新时间
+      region:
+        id: 编号
+        name: 名称
         created_at: 创建时间
         updated_at: 更新时间
