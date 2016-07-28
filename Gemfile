@@ -55,6 +55,7 @@ gem 'grape-swagger', '~> 0.22.0'
 gem 'grape-swagger-entity'
 gem 'grape-swagger-representable'
 gem 'grape-swagger-rails'
+gem 'api-pagination'
 
 gem 'devise'
 gem 'devise-bootstrap-views'
