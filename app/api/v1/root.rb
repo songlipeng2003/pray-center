@@ -2,7 +2,7 @@ module V1
   class Root < Grape::API
     default_format :json
     format :json
-    # error_formatter :json, V1::ErrorFormatter
+    error_formatter :json, V1::Entities::ErrorFormatter
 
     version 'v1', using: :path
 

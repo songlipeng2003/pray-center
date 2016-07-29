@@ -8,7 +8,8 @@ module V1
       desc "帖子",
         is_array: true,
         http_codes: [
-         [200, '成功', V1::Entities::Post]
+          [200, '成功', V1::Entities::Post],
+          [401, '未授权', V1::Entities::Error]
         ]
       paginate per_page: 10, max_per_page: 200
       params do
@@ -32,7 +33,8 @@ module V1
 
       desc "帖子详情",
         http_codes: [
-          [200, 'Ok', V1::Entities::Post]
+          [200, 'Ok', V1::Entities::Post],
+          [401, '未授权', V1::Entities::Error]
         ]
       params do
         optional 'X-Access-Token', type: String, desc: 'Token', documentation: { in: :header }
@@ -46,8 +48,9 @@ module V1
 
       desc "添加帖子",
         http_codes: [
-          [201, '成功', V1::Entities::Post],
-          [422, 'Unprocesable entity', V1::Entities::Error]
+          [201, '成功', V1::Entities::Post],,
+          [401, '未授权', V1::Entities::Error]
+          [422, '错误', V1::Entities::Error]
         ]
       params do
         optional 'X-Access-Token', type: String, desc: 'Token', documentation: { in: :header }
@@ -69,8 +72,9 @@ module V1
 
       desc "编辑帖子",
         http_codes: [
-          [201, '成功', V1::Entities::Post],
-          [422, 'Unprocesable entity', V1::Entities::Error]
+          [201, '成功', V1::Entities::Post],,
+          [401, '未授权', V1::Entities::Error]
+          [422, '错误', V1::Entities::Error]
         ]
       params do
         optional 'X-Access-Token', type: String, desc: 'Token', documentation: { in: :header }
@@ -89,7 +93,8 @@ module V1
 
       desc "删除地址",
         http_codes: [
-          [204, '成功']
+          [204, '成功'],
+          [401, '未授权', V1::Entities::Error]
         ]
       params do
         optional 'X-Access-Token', type: String, desc: 'Token', documentation: { in: :header }

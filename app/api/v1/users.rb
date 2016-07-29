@@ -1,5 +1,9 @@
 module V1
   class Users < Grape::API
+    before do
+      error!("401 Unauthorized", 401) unless authenticated
+    end
+
     resource :users do
       # desc "用户详情"
       # params do
@@ -19,8 +23,9 @@ module V1
           },
         },
         http_codes: [
-          [201, '成功', V1::Entities::User],
-          [422, 'Unprocesable entity', V1::Entities::Error]
+          [201, '成功', V1::Entities::User],,
+          [401, '未授权', V1::Entities::Error]
+          [422, '错误', V1::Entities::Error]
         ]
       }
       params do

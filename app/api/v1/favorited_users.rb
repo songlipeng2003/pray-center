@@ -14,7 +14,8 @@ module V1
         },
         is_array: true,
         http_codes: [
-         [200, '成功', V1::Entities::User]
+          [200, '成功', V1::Entities::User],
+          [401, '未授权', V1::Entities::Error]
         ]
       paginate per_page: 10, max_per_page: 200
       params do

@@ -1,7 +1,11 @@
 module V1
   class Accounts < Grape::API
     resource :accounts do
-      desc "注册"
+      desc "注册",
+        http_codes: [
+          [201, '成功', V1::Entities::LoginUser],
+          [422, '错误', V1::Entities::Error]
+        ]
       params do
         requires :phone, type: String, desc: "手机号"
         requires :code, type: String, desc: "验证码"
@@ -22,14 +26,18 @@ module V1
           if user.save
             present user, with: V1::Entities::LoginUser
           else
-            error!({ error: user.errors.full_messages.first }, 422)
+            error!(user.errors.full_messages.first, 422)
           end
         else
-          error!({ error: '验证码错误' }, 422)
+          error!('验证码错误', 422)
         end
       end
 
-      desc "登陆"
+      desc "登陆",
+        http_codes: [
+          [201, '成功', V1::Entities::LoginUser],
+          [422, '错误', V1::Entities::Error]
+        ]
       params do
         requires :phone, type: String, desc: "手机号"
         requires :password, type: String, desc: "密码"
@@ -47,7 +55,7 @@ module V1
 
           present user, with: V1::Entities::LoginUser
         else
-          error!({ error: '账号或密码错误' }, 422)
+          error!('账号或密码错误', 422)
         end
 
         # user.login_histories.create!({
