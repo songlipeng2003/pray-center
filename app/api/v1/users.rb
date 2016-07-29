@@ -23,8 +23,8 @@ module V1
           },
         },
         http_codes: [
-          [201, '成功', V1::Entities::User],,
-          [401, '未授权', V1::Entities::Error]
+          [201, '成功', V1::Entities::User],
+          [401, '未授权', V1::Entities::Error],
           [422, '错误', V1::Entities::Error]
         ]
       }

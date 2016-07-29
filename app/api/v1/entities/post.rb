@@ -12,6 +12,7 @@ module V1
       end
       expose :title
       expose :content
+      expose :pray_number
       expose :created_at
     end
   end

@@ -5,6 +5,7 @@ class User < ApplicationRecord
          :rememberable, :trackable, :validatable, :lockable
 
   has_many :posts
+  has_many :pray_histories
 
   has_many :favorites, class_name: 'FavoriteUser', source: :user
   has_many :favoriteds, class_name: 'FavoriteUser', source: :favorited_user

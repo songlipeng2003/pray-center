@@ -5,7 +5,7 @@ module V1
     end
 
     resource :posts do
-      desc "帖子",
+      desc "帖子列表",
         is_array: true,
         http_codes: [
           [200, '成功', V1::Entities::Post],
@@ -48,8 +48,8 @@ module V1
 
       desc "添加帖子",
         http_codes: [
-          [201, '成功', V1::Entities::Post],,
-          [401, '未授权', V1::Entities::Error]
+          [201, '成功', V1::Entities::Post],
+          [401, '未授权', V1::Entities::Error],
           [422, '错误', V1::Entities::Error]
         ]
       params do
@@ -72,8 +72,8 @@ module V1
 
       desc "编辑帖子",
         http_codes: [
-          [201, '成功', V1::Entities::Post],,
-          [401, '未授权', V1::Entities::Error]
+          [201, '成功', V1::Entities::Post],
+          [401, '未授权', V1::Entities::Error],
           [422, '错误', V1::Entities::Error]
         ]
       params do
@@ -88,6 +88,32 @@ module V1
           safe_params = clean_params(params).permit(:title, :content)
           post.update(safe_params)
           present post, with: V1::Entities::Post
+        end
+      end
+
+      desc "代祷",
+        http_codes: [
+          [201, '成功', V1::Entities::Post],
+          [401, '未授权', V1::Entities::Error],
+          [422, '错误', V1::Entities::Error]
+        ]
+      params do
+        optional 'X-Access-Token', type: String, desc: 'Token', documentation: { in: :header }
+        requires :id, type: Integer, desc: "编号"
+      end
+      route_param :id do
+        put :pray do
+          post = current_user.posts.find(params[:id])
+
+          pray_history = PrayHistory.where(user_id: current_user.id, post_id: params[:id]).first
+
+          if pray_history
+            error!('已经代祷，不能重复代祷', 422)
+          end
+
+          PrayHistory.create!(user_id: current_user.id, post_id: params[:id])
+
+          present post.reload, with: V1::Entities::Post
         end
       end
 
