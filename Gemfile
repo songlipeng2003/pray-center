@@ -47,9 +47,6 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
-gem 'remotipart', github: 'mshibuya/remotipart'
-gem 'rails_admin', '>= 1.0.0.rc'
-
 gem 'grape', '~> 0.16.2'
 gem 'grape-swagger', '~> 0.22.0'
 gem 'grape-swagger-entity'
@@ -57,6 +54,8 @@ gem 'grape-swagger-representable'
 gem 'grape-swagger-rails'
 gem 'api-pagination'
 
+gem 'activeadmin', github: 'activeadmin'
+gem 'inherited_resources', github: 'activeadmin/inherited_resources'
 gem 'devise'
 gem 'devise-bootstrap-views'
 gem 'bootstrap-sass', '~> 3.3.6'

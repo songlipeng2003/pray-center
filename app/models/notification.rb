@@ -1,6 +1,4 @@
 class Notification < ApplicationRecord
-  include NotificationAdmin
-
   belongs_to :user
   belongs_to :actor, class_name: User
 

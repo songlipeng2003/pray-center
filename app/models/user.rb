@@ -20,7 +20,4 @@ class User < ApplicationRecord
   def display_name
     phone
   end
-
-  rails_admin do
-  end
 end
