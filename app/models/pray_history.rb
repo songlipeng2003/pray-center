@@ -11,6 +11,7 @@ class PrayHistory < ApplicationRecord
 
   def create_notification
     notification = Notification.new
+    notification.type = 'pray'
     notification.user = post.user
     notification.actor = user
     notification.target = post

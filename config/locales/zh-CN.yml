@@ -7,6 +7,7 @@ zh-CN:
       user: '用户'
       auth_code: '验证码'
       region: '区域'
+      notification: 通知
     attributes:
       admin_user:
         id: 编号
@@ -57,5 +58,13 @@ zh-CN:
       region:
         id: 编号
         name: 名称
+        created_at: 创建时间
+        updated_at: 更新时间
+      notification:
+        id: 编号
+        user: 用户
+        type: 类型
+        target: 目标
+        content: 内容
         created_at: 创建时间
         updated_at: 更新时间

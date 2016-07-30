@@ -2,6 +2,7 @@ module V1
   module Entities
     class Notification < Grape::Entity
       expose :id
+      expose :type
       expose :content
       expose :target_type
       expose :target_id
