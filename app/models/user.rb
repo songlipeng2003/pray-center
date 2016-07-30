@@ -6,6 +6,7 @@ class User < ApplicationRecord
 
   has_many :posts
   has_many :pray_histories
+  has_many :notifications
 
   has_many :favorites, class_name: 'FavoriteUser', source: :user
   has_many :favoriteds, class_name: 'FavoriteUser', source: :favorited_user

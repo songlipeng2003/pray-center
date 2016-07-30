@@ -68,6 +68,7 @@ module V1
     mount V1::AuthCodes
     mount V1::Accounts
     mount V1::FavoritedUsers
+    mount V1::Notifications
     mount V1::Posts
     mount V1::Regions
     mount V1::Users

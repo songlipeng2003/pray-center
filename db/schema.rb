@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160729155351) do
+ActiveRecord::Schema.define(version: 20160729162410) do
 
   create_table "admin_users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "email",                  default: "", null: false
@@ -55,6 +55,23 @@ ActiveRecord::Schema.define(version: 20160729155351) do
     t.datetime "updated_at",        null: false
     t.index ["favorited_user_id"], name: "index_favorite_users_on_favorited_user_id", using: :btree
     t.index ["user_id"], name: "index_favorite_users_on_user_id", using: :btree
+  end
+
+  create_table "notifications", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "user_id"
+    t.integer  "actor_id"
+    t.string   "type"
+    t.string   "target_type"
+    t.integer  "target_id"
+    t.string   "second_target_type"
+    t.integer  "second_target_id"
+    t.string   "content"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.index ["actor_id"], name: "index_notifications_on_actor_id", using: :btree
+    t.index ["second_target_type", "second_target_id"], name: "index_notifications_on_second_target_type_and_second_target_id", using: :btree
+    t.index ["target_type", "target_id"], name: "index_notifications_on_target_type_and_target_id", using: :btree
+    t.index ["user_id"], name: "index_notifications_on_user_id", using: :btree
   end
 
   create_table "posts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
