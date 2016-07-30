@@ -13,6 +13,8 @@ class User < ApplicationRecord
   has_many :favorite_users, through: :favorites, class_name: 'User', source: :favorited_user
   has_many :favorited_users, through: :favoriteds, class_name: 'User', source: :user
 
+  validates :phone, presence: true
+
   def email_required?
     false
   end
