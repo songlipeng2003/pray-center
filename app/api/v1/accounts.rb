@@ -7,6 +7,7 @@ module V1
           [422, '错误', V1::Entities::Error]
         ]
       params do
+        requires :username, type: String, desc: "用户名"
         requires :phone, type: String, desc: "手机号"
         requires :code, type: String, desc: "验证码"
         requires :password, type: String, desc: "密码"
@@ -16,6 +17,7 @@ module V1
 
         if is_valid
           user = User.new({
+            username: params[:username],
             phone: params[:phone],
             password: params[:password],
             password_confirmation: params[:password]
@@ -44,7 +46,7 @@ module V1
         optional :device, type: String, desc: "设备唯一编号"
         optional :device_model, type: String, desc: "设备型号，例如：小米Note"
         optional :device_type, type: String, desc: "设备类型，android或者ios"
-        optional :jpush, type: String, desc: "极光推送ID"
+        optional :jpush, type: String, desc: "极光推送ID(暂时忽略)"
       end
       post 'login' do
         phone = params[:phone]

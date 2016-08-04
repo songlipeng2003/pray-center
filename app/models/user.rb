@@ -14,6 +14,7 @@ class User < ApplicationRecord
   has_many :favorited_users, through: :favoriteds, class_name: 'User', source: :user
 
   validates :phone, presence: true
+  validates :username, presence: true, uniqueness: true
 
   def email_required?
     false
