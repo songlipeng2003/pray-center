@@ -7,15 +7,15 @@ module V1
           [422, '错误', V1::Entities::Error]
         ]
       params do
-        requires :username, type: String, desc: "用户名"
+        requires :username, type: String, desc: "用户名(第一位必须应为字母，只能小写英文、数字和_的组合，长度6-18位)"
         requires :phone, type: String, desc: "手机号"
         requires :code, type: String, desc: "验证码"
         requires :password, type: String, desc: "密码"
       end
       post 'register' do
-        is_valid = AuthCode.validate_code(params[:phone], params[:code])
+        # is_valid = AuthCode.validate_code(params[:phone], params[:code])
 
-        if is_valid
+        if true
           user = User.new({
             username: params[:username],
             phone: params[:phone],
