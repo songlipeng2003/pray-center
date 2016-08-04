@@ -5,15 +5,32 @@ module V1
     end
 
     resource :users do
-      # desc "用户详情"
-      # params do
-      #   requires :id, type: Integer, desc: "用户编号"
-      # end
-      # route_param :id do
-      #   get do
-      #     present User.find(params[:id]), with: V1::Entities::User
-      #   end
-      # end
+      desc "用户详情", {
+        headers: {
+          "X-Access-Token" => {
+            description: "Token",
+            required: true
+          },
+        },
+        http_codes: [
+          [200, '成功', V1::Entities::User],
+          [401, '未授权', V1::Entities::Error],
+          [404, '未找到', V1::Entities::Error],
+        ]
+      }
+      params do
+        requires :id, type: Integer, desc: "用户编号"
+      end
+      route_param :id do
+        get do
+          user = User::find(params[:id])
+          if user.id!=current_user.id
+            error!('Not Found', 404)
+          end
+
+          present user, with: V1::Entities::User
+        end
+      end
 
       desc '更新用户信息', {
         headers: {
@@ -25,6 +42,7 @@ module V1
         http_codes: [
           [201, '成功', V1::Entities::User],
           [401, '未授权', V1::Entities::Error],
+          [404, '未找到', V1::Entities::Error],
           [422, '错误', V1::Entities::Error]
         ]
       }

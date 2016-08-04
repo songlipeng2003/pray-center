@@ -9,8 +9,8 @@ ActiveAdmin.register User do
     column :phone
     column :gender
     column :job
+    column :invitation_code
     column :created_at
-    column :updated_at
     actions
   end
 

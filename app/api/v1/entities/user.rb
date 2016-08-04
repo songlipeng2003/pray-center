@@ -16,6 +16,7 @@ module V1
       expose :area
       expose :period
       expose :created_at
+      expose :invitation_code
     end
   end
 end

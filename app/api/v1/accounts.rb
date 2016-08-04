@@ -11,16 +11,25 @@ module V1
         requires :phone, type: String, desc: "手机号"
         requires :code, type: String, desc: "验证码"
         requires :password, type: String, desc: "密码"
+        requires :invitation_code, type: String, desc: "邀请码"
       end
       post 'register' do
         # is_valid = AuthCode.validate_code(params[:phone], params[:code])
 
+        user_id = User.encode_invitation_code(params[:invitation_code])
+        parent_user = User.find_by_id(user_id)
+        unless parent_user
+          error!('邀请码错误', 422)
+        end
+
+        # if is_valid
         if true
           user = User.new({
             username: params[:username],
             phone: params[:phone],
             password: params[:password],
-            password_confirmation: params[:password]
+            password_confirmation: params[:password],
+            parent_id: user_id
           })
 
           # user.application = current_application

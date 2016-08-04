@@ -4,6 +4,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :rememberable, :trackable, :validatable, :lockable
 
+  has_one :parent, class_name: 'User'
+
   has_many :posts
   has_many :pray_histories
   has_many :notifications
@@ -23,5 +25,13 @@ class User < ApplicationRecord
 
   def display_name
     phone
+  end
+
+  def invitation_code
+    (id * 1000 + 1000000).to_s(16)
+  end
+
+  def User.encode_invitation_code(code)
+    (code.hex - 1000000) / 1000
   end
 end
