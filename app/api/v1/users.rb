@@ -5,6 +5,27 @@ module V1
     end
 
     resource :users do
+      desc "在线用户数", {
+        headers: {
+          "X-Access-Token" => {
+            description: "Token",
+            required: true
+          },
+        },
+        http_codes: [
+          [200, '成功', V1::Entities::Data],
+          [401, '未授权', V1::Entities::Error],
+        ]
+      }
+      get :online_count do
+        count = User.online.count
+
+        result = {count: count}
+
+        present result
+      end
+
+
       desc "用户详情", {
         headers: {
           "X-Access-Token" => {
@@ -61,8 +82,6 @@ module V1
       end
       route_param :id do
         put do
-          authenticate!
-
           user = User::find(params[:id])
           if user.id!=current_user.id
             error!('Not Found', 404)
@@ -76,6 +95,34 @@ module V1
           else
             error!({ error: user.errors.full_messages.first }, 422)
           end
+        end
+      end
+
+      desc '更新用户在线状态(此接口，客户端每分钟调用一次)', {
+        headers: {
+          "X-Access-Token" => {
+            description: "Token",
+            required: true
+          },
+        },
+        http_codes: [
+          [201, '成功', V1::Entities::Result],
+          [401, '未授权', V1::Entities::Error],
+          [404, '未找到', V1::Entities::Error],
+        ]
+      }
+      route_param :id do
+        put :online do
+          user = User::find(params[:id])
+          if user.id!=current_user.id
+            error!('Not Found', 404)
+          end
+
+          User.where(id: user.id).update_all(online_at: Time.now)
+
+          result = {result: true}
+          status 201
+          present result
         end
       end
     end

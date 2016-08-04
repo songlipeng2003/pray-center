@@ -4,7 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :rememberable, :trackable, :validatable, :lockable
 
-  has_one :parent, class_name: 'User'
+  belongs_to :parent, class_name: 'User'
 
   has_many :posts
   has_many :pray_histories
@@ -18,6 +18,8 @@ class User < ApplicationRecord
   validates :phone, presence: true, uniqueness: true
   validates :username, presence: true, uniqueness: true, format: { with: /\A[a-z][a-z0-9_]{4,16}[a-z0-9]\z/,
     message: "第一位必须应为字母，只能小写英文、数字和_的组合，长度6-18位" }
+
+  scope :online, -> { where("online_at > ?", 1.hours.ago) }
 
   def email_required?
     false

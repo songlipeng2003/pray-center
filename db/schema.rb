@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160804140748) do
+ActiveRecord::Schema.define(version: 20160804143102) do
 
   create_table "active_admin_comments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "namespace"
@@ -145,6 +145,7 @@ ActiveRecord::Schema.define(version: 20160804140748) do
     t.datetime "locked_at"
     t.string   "authentication_token"
     t.integer  "parent_id"
+    t.datetime "online_at"
     t.index ["parent_id"], name: "index_users_on_parent_id", using: :btree
     t.index ["username"], name: "index_users_on_username", unique: true, using: :btree
   end
