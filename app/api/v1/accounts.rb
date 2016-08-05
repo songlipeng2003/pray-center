@@ -50,7 +50,7 @@ module V1
           [422, '错误', V1::Entities::Error]
         ]
       params do
-        requires :phone, type: String, desc: "手机号"
+        requires :username, type: String, desc: "用户名或手机号"
         requires :password, type: String, desc: "密码"
         optional :device, type: String, desc: "设备唯一编号"
         optional :device_model, type: String, desc: "设备型号，例如：小米Note"
@@ -58,8 +58,8 @@ module V1
         optional :jpush, type: String, desc: "极光推送ID(暂时忽略)"
       end
       post 'login' do
-        phone = params[:phone]
-        user = User.where('phone=?', phone).first
+        username = params[:username]
+        user = User.where('phone=? OR username=?', username, username).first
 
         if user && user.valid_password?(params[:password])
           user.update_tracked_fields!(warden.request)
