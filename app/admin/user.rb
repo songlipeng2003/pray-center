@@ -1,5 +1,5 @@
 ActiveAdmin.register User do
-  permit_params :phone, :password, :password_confirmation
+  permit_params :username, :phone, :password, :password_confirmation
 
   index do
     selectable_column
