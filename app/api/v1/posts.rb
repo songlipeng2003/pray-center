@@ -60,6 +60,10 @@ module V1
         requires :content, type: String, desc: "内容"
       end
       post do
+        if current_user.pray_histories.count<7
+          error!({ error: '代祷少于7次不能发布' }, 422)
+        end
+
         safe_params = clean_params(params).permit(:title, :content, :category_id, :region_id)
         post = current_user.posts.new(safe_params)
         # post.application = current_application
