@@ -60,6 +60,8 @@ module V1
         requires :content, type: String, desc: "内容"
       end
       post do
+        check_user_info!
+
         if current_user.pray_histories.count<7
           error!({ error: '代祷少于7次不能发布' }, 422)
         end
@@ -88,6 +90,8 @@ module V1
       end
       route_param :id do
         put do
+          check_user_info!
+
           post = current_user.posts.find(params[:id])
           safe_params = clean_params(params).permit(:title, :content)
           post.update(safe_params)
@@ -107,6 +111,8 @@ module V1
       end
       route_param :id do
         put :pray do
+          check_user_info!
+
           post = current_user.posts.find(params[:id])
 
           pray_history = PrayHistory.where(user_id: current_user.id, post_id: params[:id]).first
@@ -121,7 +127,7 @@ module V1
         end
       end
 
-      desc "删除地址",
+      desc "删除帖子",
         http_codes: [
           [204, '成功'],
           [401, '未授权', V1::Entities::Error]

@@ -62,6 +62,12 @@ module V1
       def client_ip
         env['action_dispatch.remote_ip'].to_s
       end
+
+      def check_user_info!
+        if user.created_at!=user.updated_at
+          error!({ error: '用户信息不完整，请先完善用户信息' }, 422)
+        end
+      end
     end
 
     mount V1::Categories
