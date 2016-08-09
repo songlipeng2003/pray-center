@@ -21,6 +21,7 @@ module V1
       expose :content, documentation: { type: 'String', desc: '内容' }
       expose :pray_number, documentation: { type: 'Integer', desc: '代祷人数' }
       expose :created_at, documentation: { type: 'String', desc: '发布时间' }
+      expose :post_images, with: V1::Entities::PostImage
     end
   end
 end

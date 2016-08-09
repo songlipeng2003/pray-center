@@ -64,7 +64,7 @@ module V1
       end
 
       def check_user_info!
-        if user.created_at!=user.updated_at
+        if current_user.created_at==current_user.updated_at
           error!({ error: '用户信息不完整，请先完善用户信息' }, 422)
         end
       end

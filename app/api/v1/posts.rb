@@ -94,8 +94,38 @@ module V1
 
           post = current_user.posts.find(params[:id])
           safe_params = clean_params(params).permit(:title, :content)
-          post.update(safe_params)
-          present post, with: V1::Entities::Post
+          if post.update(safe_params)
+            present post, with: V1::Entities::Post
+          else
+            error!({ error: post.errors.full_messages.first }, 422)
+          end
+        end
+      end
+
+      desc "添加帖子图片",
+        http_codes: [
+          [201, '成功', V1::Entities::PostImage],
+          [401, '未授权', V1::Entities::Error],
+          [422, '错误', V1::Entities::Error]
+        ]
+      params do
+        optional 'X-Access-Token', type: String, desc: 'Token', documentation: { in: :header }
+        requires :id, type: Integer, desc: "编号"
+        requires :image, type: File, desc: "图片"
+      end
+      route_param :id do
+        post :images do
+          check_user_info!
+
+          post = current_user.posts.find(params[:id])
+
+          post_image = post.post_images.new
+          post_image.image = params[:image]
+          if post_image.save
+            present post_image, with: V1::Entities::PostImage
+          else
+            error!({ error: post_image.errors.full_messages.first }, 422)
+          end
         end
       end
 

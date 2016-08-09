@@ -4,6 +4,7 @@ class Post < ApplicationRecord
   belongs_to :region
 
   has_many :pray_histories
+  has_many :post_images
 
   validates :title, presence: true
   validates :content, presence: true
