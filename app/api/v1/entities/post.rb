@@ -10,6 +10,13 @@ module V1
       expose :region_name, documentation: { type: 'String', desc: '区域名称' } do |post|
         post.region.name
       end
+      expose :user_id, documentation: { type: 'Integer', desc: '用户编号' }
+      expose :user_name, documentation: { type: 'String', desc: '用户名称' } do |post|
+        post.user.name
+      end
+      expose :user_avatar, documentation: { type: 'String', desc: '用户名称' } do |post|
+        post.user.avatar.thumb.url
+      end
       expose :title, documentation: { type: 'String', desc: '标题' }
       expose :content, documentation: { type: 'String', desc: '内容' }
       expose :pray_number, documentation: { type: 'Integer', desc: '代祷人数' }
