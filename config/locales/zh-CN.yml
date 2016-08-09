@@ -60,6 +60,7 @@ zh-CN:
         password_confirmation: '确认密码'
         invitation_code: '邀请码'
         online_at: '最后在线时间'
+        avatar: '头像'
       auth_code:
         id: 编号
         phone: 电话

@@ -70,3 +70,7 @@ gem 'sinatra', github: 'sinatra/sinatra', :require => false
 gem 'rails-i18n', '~> 5.0.0'
 
 gem 'isms-ruby'
+
+# upload
+gem 'carrierwave', '~> 0.10.0'
+gem 'mini_magick', '~> 3.7.0'

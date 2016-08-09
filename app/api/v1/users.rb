@@ -68,6 +68,7 @@ module V1
         ]
       }
       params do
+        requires :avatar, type: File, desc: '头像'
         requires :name, type: String, desc: '姓名'
         requires :address, type: String, desc: '地址'
         requires :gender, type: String, desc: '性别, 男, 女'
@@ -76,7 +77,7 @@ module V1
         requires :job, type: String, desc: '职业'
         requires :church, type: String, desc: '教会'
         requires :church_service, type: String, desc: '教会服侍'
-        requires :rebirtch, type: String, desc: '信主时间'
+        requires :rebirth, type: String, desc: '信主时间'
         requires :area, type: String, desc: '代祷区域'
         requires :period, type: Integer, desc: '代祷时段'
       end
@@ -88,7 +89,9 @@ module V1
           end
 
           safe_params = clean_params(params).permit(:name, :address, :gender, :birth, :education,
-              :job, :church, :church_service, :rebirtch, :area, :period)
+              :job, :church, :church_service, :rebirth, :area, :period, :avatar)
+
+          user.avatar = params[:avatar]
 
           if user.update(safe_params)
             present user, with: V1::Entities::User

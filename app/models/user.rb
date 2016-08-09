@@ -21,6 +21,8 @@ class User < ApplicationRecord
 
   scope :online, -> { where("online_at > ?", 1.hours.ago) }
 
+  mount_uploader :avatar, AvatarUploader
+
   def email_required?
     false
   end

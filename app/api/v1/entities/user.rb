@@ -2,6 +2,9 @@ module V1
   module Entities
     class User < Grape::Entity
       expose :id, documentation: { type: 'Integer', desc: '编号' }
+      expose :avatar, documentation: { type: 'String', desc: '头像' } do |user|
+        user.avatar.thumb.url
+      end
       expose :username, documentation: { type: 'String', desc: '用户名' }
       expose :phone, documentation: { type: 'String', desc: '手机号' }
       expose :name, documentation: { type: 'String', desc: '姓名' }
