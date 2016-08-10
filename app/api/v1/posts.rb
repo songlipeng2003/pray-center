@@ -1,8 +1,5 @@
 module V1
   class Posts < Grape::API
-    before do
-      error!("401 Unauthorized", 401) unless authenticated
-    end
 
     resource :posts do
       desc "帖子列表",
@@ -13,7 +10,6 @@ module V1
         ]
       paginate per_page: 10, max_per_page: 200
       params do
-        optional 'X-Access-Token', type: String, desc: 'Token', documentation: { in: :header }
         optional :category_id, type: Integer, desc: '分类'
         optional :region_id, type: Integer, desc: '区域'
         optional :sort, type: String, values: ['id', 'pray_number'], default: 'id', desc: '排序字段'
@@ -37,7 +33,6 @@ module V1
           [401, '未授权', V1::Entities::Error]
         ]
       params do
-        optional 'X-Access-Token', type: String, desc: 'Token', documentation: { in: :header }
         requires :id, type: Integer, desc: "编号"
       end
       route_param :id do
@@ -60,6 +55,7 @@ module V1
         requires :content, type: String, desc: "内容"
       end
       post do
+        authenticate!
         check_user_info!
 
         if current_user.pray_histories.count<7
@@ -90,6 +86,7 @@ module V1
       end
       route_param :id do
         put do
+          authenticate!
           check_user_info!
 
           post = current_user.posts.find(params[:id])
@@ -115,6 +112,7 @@ module V1
       end
       route_param :id do
         post :images do
+          authenticate!
           check_user_info!
 
           post = current_user.posts.find(params[:id])
@@ -141,6 +139,7 @@ module V1
       end
       route_param :id do
         put :pray do
+          authenticate!
           check_user_info!
 
           post = current_user.posts.find(params[:id])
@@ -168,6 +167,8 @@ module V1
       end
       route_param :id do
         delete do
+          authenticate!
+
           post = current_user.posts.find(params[:id])
           post.destroy
           status 204
