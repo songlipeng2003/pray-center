@@ -6,7 +6,7 @@ module V1
         is_array: true,
         http_codes: [
           [200, '成功', V1::Entities::Post],
-          [401, '未授权', V1::Entities::Error]
+          # [401, '未授权', V1::Entities::Error]
         ]
       paginate per_page: 10, max_per_page: 200
       params do
@@ -30,7 +30,7 @@ module V1
       desc "帖子详情",
         http_codes: [
           [200, 'Ok', V1::Entities::Post],
-          [401, '未授权', V1::Entities::Error]
+          # [401, '未授权', V1::Entities::Error]
         ]
       params do
         requires :id, type: Integer, desc: "编号"
