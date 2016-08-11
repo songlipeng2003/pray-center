@@ -96,7 +96,7 @@ module V1
           if user.update(safe_params)
             present user, with: V1::Entities::User
           else
-            error!({ error: user.errors.full_messages.first }, 422)
+            error!({ user.errors.full_messages.first, 422)
           end
         end
       end
