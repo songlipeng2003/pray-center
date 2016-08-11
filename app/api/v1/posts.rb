@@ -59,7 +59,7 @@ module V1
         check_user_info!
 
         if current_user.pray_histories.count<7
-          error!({ '代祷少于7次不能发布', 422)
+          error!('代祷少于7次不能发布', 422)
         end
 
         safe_params = clean_params(params).permit(:title, :content, :category_id, :region_id)
@@ -94,7 +94,7 @@ module V1
           if post.update(safe_params)
             present post, with: V1::Entities::Post
           else
-            error!({ post.errors.full_messages.first, 422)
+            error!(post.errors.full_messages.first, 422)
           end
         end
       end
@@ -122,7 +122,7 @@ module V1
           if post_image.save
             present post_image, with: V1::Entities::PostImage
           else
-            error!({ post_image.errors.full_messages.first, 422)
+            error!(post_image.errors.full_messages.first, 422)
           end
         end
       end
