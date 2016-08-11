@@ -68,7 +68,7 @@ module V1
         if post.save
           present post, with: V1::Entities::Post
         else
-          error!({ post.errors.full_messages.first, 422)
+          error!(post.errors.full_messages.first, 422)
         end
       end
 
