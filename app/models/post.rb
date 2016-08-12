@@ -16,7 +16,7 @@ class Post < ApplicationRecord
   scope :today, -> { where("created_at > ?", Date.today) }
 
   def speed_limit
-    if user.posts.today.count>2
+    if user.posts.today.count>1000
       errors.add(:title, '今天发帖量已经达到最大限制')
     end
   end
