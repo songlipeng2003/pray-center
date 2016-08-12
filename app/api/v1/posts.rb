@@ -6,10 +6,11 @@ module V1
         is_array: true,
         http_codes: [
           [200, '成功', V1::Entities::Post],
-          # [401, '未授权', V1::Entities::Error]
+          [401, '未授权', V1::Entities::Error]
         ]
       paginate per_page: 10, max_per_page: 200
       params do
+        optional 'X-Access-Token', type: String, desc: 'Token', documentation: { in: :header }
         optional :category_id, type: Integer, desc: '分类'
         optional :region_id, type: Integer, desc: '区域'
         optional :sort, type: String, values: ['id', 'pray_number'], default: 'id', desc: '排序字段'
@@ -18,19 +19,21 @@ module V1
         optional :per_page, type: Integer, default: 10, desc: '每页数量'
       end
       get do
+        authenticate!
+
         query = Post.includes(:category, :region).where('1=1')
         query = query.where(category_id: params[:category_id]) if params[:category_id]
         query = query.where(region_id: params[:region_id]) if params[:region_id]
         query = query.order(params[:sort] => params[:order])
         result = paginate query
 
-        present result, with: V1::Entities::Post
+        present result, with: V1::Entities::Post, user: current_user
       end
 
       desc "帖子详情",
         http_codes: [
           [200, 'Ok', V1::Entities::Post],
-          # [401, '未授权', V1::Entities::Error]
+          [401, '未授权', V1::Entities::Error]
         ]
       params do
         requires :id, type: Integer, desc: "编号"
