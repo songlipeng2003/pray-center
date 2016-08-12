@@ -1,5 +1,5 @@
 ActiveAdmin.register Post do
-  permit_params :phone, :password, :password_confirmation
+  permit_params :user_id, :category_id, :region_id, :title, :content
 
   index do
     selectable_column

@@ -58,7 +58,7 @@ module V1
         authenticate!
         check_user_info!
 
-        if current_user.pray_histories.count<7
+        if current_user.pray_histories.count<0
           error!('代祷少于7次不能发布', 422)
         end
 
