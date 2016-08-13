@@ -40,7 +40,7 @@ module V1
       end
       route_param :id do
         get do
-          present Post.find(params[:id]), with: V1::Entities::Post
+          present Post.find(params[:id]), with: V1::Entities::Post, user: current_user
         end
       end
 
@@ -69,7 +69,7 @@ module V1
         post = current_user.posts.new(safe_params)
         # post.application = current_application
         if post.save
-          present post, with: V1::Entities::Post
+          present post, with: V1::Entities::Post, user: current_user
         else
           error!(post.errors.full_messages.first, 422)
         end
@@ -95,7 +95,7 @@ module V1
           post = current_user.posts.find(params[:id])
           safe_params = clean_params(params).permit(:title, :content)
           if post.update(safe_params)
-            present post, with: V1::Entities::Post
+            present post, with: V1::Entities::Post, user: current_user
           else
             error!(post.errors.full_messages.first, 422)
           end
@@ -155,7 +155,7 @@ module V1
 
           PrayHistory.create!(user_id: current_user.id, post_id: params[:id])
 
-          present post.reload, with: V1::Entities::Post
+          present post.reload, with: V1::Entities::Post, user: current_user
         end
       end
 
