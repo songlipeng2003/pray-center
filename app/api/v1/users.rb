@@ -5,7 +5,7 @@ module V1
     end
 
     resource :users do
-      desc "在线用户数", {
+      desc "在线用户数(支持更新用户在线状态)", {
         headers: {
           "X-Access-Token" => {
             description: "Token",
@@ -18,6 +18,8 @@ module V1
         ]
       }
       get :online_count do
+        User.where(id: current_user.id).update_all(online_at: Time.now)
+
         count = User.online.count
 
         result = {count: count}
