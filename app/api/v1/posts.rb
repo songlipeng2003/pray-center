@@ -48,6 +48,7 @@ module V1
         http_codes: [
           [201, '成功', V1::Entities::Post],
           [401, '未授权', V1::Entities::Error],
+          [403, '没有权限', V1::Entities::Error],
           [422, '错误', V1::Entities::Error]
         ]
       params do
@@ -79,6 +80,8 @@ module V1
         http_codes: [
           [201, '成功', V1::Entities::Post],
           [401, '未授权', V1::Entities::Error],
+          [403, '没有权限', V1::Entities::Error],
+          [404, 'Not Found', V1::Entities::Error],
           [422, '错误', V1::Entities::Error]
         ]
       params do
@@ -106,6 +109,8 @@ module V1
         http_codes: [
           [201, '成功', V1::Entities::PostImage],
           [401, '未授权', V1::Entities::Error],
+          [403, '没有权限', V1::Entities::Error],
+          [404, 'Not Found', V1::Entities::Error],
           [422, '错误', V1::Entities::Error]
         ]
       params do
@@ -134,6 +139,8 @@ module V1
         http_codes: [
           [201, '成功', V1::Entities::Post],
           [401, '未授权', V1::Entities::Error],
+          [403, '没有权限', V1::Entities::Error],
+          [404, 'Not Found', V1::Entities::Error],
           [422, '错误', V1::Entities::Error]
         ]
       params do
@@ -162,7 +169,9 @@ module V1
       desc "删除帖子",
         http_codes: [
           [204, '成功'],
-          [401, '未授权', V1::Entities::Error]
+          [401, '未授权', V1::Entities::Error],
+          [403, '没有权限', V1::Entities::Error],
+          [404, 'Not Found', V1::Entities::Error],
         ]
       params do
         optional 'X-Access-Token', type: String, desc: 'Token', documentation: { in: :header }

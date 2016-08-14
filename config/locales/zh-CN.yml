@@ -61,6 +61,7 @@ zh-CN:
         invitation_code: '邀请码'
         online_at: '最后在线时间'
         avatar: '头像'
+        status: '状态'
       auth_code:
         id: 编号
         phone: 电话
@@ -81,3 +82,8 @@ zh-CN:
         content: 内容
         created_at: 创建时间
         updated_at: 更新时间
+  active_admin:
+    batch_actions:
+      labels:
+        pass: '通过审核'
+        refuse: '拒绝审核'

@@ -1,6 +1,18 @@
 class User < ApplicationRecord
   include Tokenable
 
+  STATUS_UNAPPLYED = 0;
+  STATUS_PENDING = 1;
+  STATUS_CHECKED = 2;
+  STATUS_REFUSED = -1;
+
+  STATUSES = {
+    STATUS_UNAPPLYED => '未申请',
+    STATUS_PENDING => '待审核',
+    STATUS_CHECKED => '已审核',
+    STATUS_REFUSED => '已拒绝',
+  }
+
   devise :database_authenticatable, :registerable,
          :rememberable, :trackable, :validatable, :lockable
 
@@ -37,5 +49,9 @@ class User < ApplicationRecord
 
   def User.encode_invitation_code(code)
     (code.hex - 1000000) / 1000
+  end
+
+  def status_text
+    STATUSES[status]
   end
 end
