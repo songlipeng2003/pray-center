@@ -65,15 +65,15 @@ module V1
 
       def check_user_info!
         if current_user.status==User::STATUS_UNAPPLYED
-          error!({ error: '用户信息不完整，请先完善用户信息' }, 403)
+          error!({ '用户信息不完整，请先完善用户信息' }, 403)
         end
 
         if current_user.status==User::STATUS_PENDING
-          error!({ error: '你的用户信息正在审核中，请通过后再操作' }, 403)
+          error!({ '你的用户信息正在审核中，请通过后再操作' }, 403)
         end
 
         if current_user.status==User::STATUS_REFUSED
-          error!({ error: '你的用户信息已经被拒绝，请修改后重新提交' }, 403)
+          error!({ '你的用户信息已经被拒绝，请修改后重新提交' }, 403)
         end
       end
     end
