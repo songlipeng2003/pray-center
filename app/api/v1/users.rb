@@ -93,6 +93,7 @@ module V1
               :job, :church, :church_service, :rebirth, :area, :period)
 
           user.avatar = params[:avatar]
+          user.status = User::STATUS_PENDING if user.status==User::STATUS_UNAPPLYED
 
           if user.update(safe_params)
             present user, with: V1::Entities::User
