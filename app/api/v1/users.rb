@@ -70,7 +70,6 @@ module V1
         ]
       }
       params do
-        requires :avatar, type: File, desc: '头像'
         requires :name, type: String, desc: '姓名'
         requires :address, type: String, desc: '地址'
         requires :gender, type: String, desc: '性别, 男, 女'
@@ -91,7 +90,41 @@ module V1
           end
 
           safe_params = clean_params(params).permit(:name, :address, :gender, :birth, :education,
-              :job, :church, :church_service, :rebirth, :area, :period, :avatar)
+              :job, :church, :church_service, :rebirth, :area, :period)
+
+          user.avatar = params[:avatar]
+
+          if user.update(safe_params)
+            present user, with: V1::Entities::User
+          else
+            error!(user.errors.full_messages.first, 422)
+          end
+        end
+      end
+
+      desc '更新头像', {
+        headers: {
+          "X-Access-Token" => {
+            description: "Token",
+            required: true
+          },
+        },
+        http_codes: [
+          [201, '成功', V1::Entities::User],
+          [401, '未授权', V1::Entities::Error],
+          [404, '未找到', V1::Entities::Error],
+          [422, '错误', V1::Entities::Error]
+        ]
+      }
+      params do
+        requires :avatar, type: File, desc: '头像'
+      end
+      route_param :id do
+        put :avatar do
+          user = User::find(params[:id])
+          if user.id!=current_user.id
+            error!('Not Found', 404)
+          end
 
           user.avatar = params[:avatar]
 
