@@ -1,7 +1,7 @@
 require 'isms'
 
 ISMS.configure do |config|
-  config.username = ENV['ISMS_USERNAME'] || 'username'
-  config.password = ENV['ISMS_PASSWORD'] || 'password'
+  config.username = Settings.isms.username
+  config.password = Settings.isms.password
   config.protocol = 'https'
 end

@@ -74,3 +74,6 @@ gem 'isms-ruby'
 # upload
 gem 'carrierwave', '~> 0.10.0'
 gem 'mini_magick', '~> 3.7.0'
+
+# config
+gem 'config'
