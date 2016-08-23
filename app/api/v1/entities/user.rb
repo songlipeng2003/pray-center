@@ -16,7 +16,10 @@ module V1
       expose :church, documentation: { type: 'String', desc: '教会' }
       expose :church_service, documentation: { type: 'String', desc: '教会服侍' }
       expose :rebirth, documentation: { type: 'String', desc: '受洗时间' }
-      expose :area, documentation: { type: 'String', desc: '代祷区域' }
+      expose :region_id, documentation: { type: 'Integer', desc: '代祷区域' }
+      expose :region_name, documentation: { type: 'String', desc: '代祷区域' } do |instance|
+        instance.region ? instance.region.name : nil
+      end
       expose :period, documentation: { type: 'Integer', desc: '祷告时间段，1、2、3、4' }
       expose :created_at, documentation: { type: 'String', desc: '注册时间' }
       expose :invitation_code, documentation: { type: 'String', desc: '邀请码' }

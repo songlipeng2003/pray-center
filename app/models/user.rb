@@ -17,6 +17,7 @@ class User < ApplicationRecord
          :rememberable, :trackable, :validatable, :lockable
 
   belongs_to :parent, class_name: 'User'
+  belongs_to :region
 
   has_many :posts
   has_many :pray_histories

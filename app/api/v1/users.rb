@@ -72,15 +72,15 @@ module V1
       params do
         requires :name, type: String, desc: '姓名'
         requires :address, type: String, desc: '地址'
-        requires :gender, type: String, desc: '性别, 男, 女'
+        requires :gender, type: String, values: ['男', '女'], desc: '性别, 男, 女'
         requires :birth, type: String, desc: '出生日期'
         requires :education, type: Integer, desc: '学历'
         requires :job, type: String, desc: '职业'
         requires :church, type: String, desc: '教会'
         requires :church_service, type: String, desc: '教会服侍'
         requires :rebirth, type: String, desc: '信主时间'
-        requires :area, type: String, desc: '代祷区域'
-        requires :period, type: Integer, desc: '代祷时段'
+        requires :region_id, type: Integer, desc: '代祷区域'
+        requires :period, type: Integer, values: [1, 2, 3, 4], desc: '代祷时段，1、2、3、4'
       end
       route_param :id do
         put do
@@ -90,7 +90,7 @@ module V1
           end
 
           safe_params = clean_params(params).permit(:name, :address, :gender, :birth, :education,
-              :job, :church, :church_service, :rebirth, :area, :period)
+              :job, :church, :church_service, :rebirth, :region_id, :period)
 
           user.avatar = params[:avatar]
           user.status = User::STATUS_PENDING if user.status==User::STATUS_UNAPPLYED

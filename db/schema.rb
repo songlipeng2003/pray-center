@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160814100213) do
+ActiveRecord::Schema.define(version: 20160823135056) do
 
   create_table "active_admin_comments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "namespace"
@@ -137,7 +137,6 @@ ActiveRecord::Schema.define(version: 20160814100213) do
     t.string   "church"
     t.string   "church_service"
     t.date     "rebirth"
-    t.integer  "area"
     t.string   "period"
     t.datetime "created_at",                        null: false
     t.datetime "updated_at",                        null: false
@@ -156,7 +155,9 @@ ActiveRecord::Schema.define(version: 20160814100213) do
     t.datetime "online_at"
     t.string   "avatar"
     t.integer  "status",               default: 0
+    t.integer  "region_id"
     t.index ["parent_id"], name: "index_users_on_parent_id", using: :btree
+    t.index ["region_id"], name: "index_users_on_region_id", using: :btree
     t.index ["username"], name: "index_users_on_username", unique: true, using: :btree
   end
 

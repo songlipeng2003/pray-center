@@ -52,7 +52,8 @@ zh-CN:
         church: 教会
         church_service: 教会服侍
         rebirth: 受洗日期
-        area: 区域
+        region: 区域
+        region_id: 区域
         period: 时间段
         created_at: 创建时间
         updated_at: 更新时间
