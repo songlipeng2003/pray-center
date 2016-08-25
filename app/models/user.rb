@@ -13,6 +13,13 @@ class User < ApplicationRecord
     STATUS_REFUSED => '已拒绝',
   }
 
+  PERIODS = {
+    1 => '12点到3点',
+    2 => '3点到6点',
+    3 => '6点到9点',
+    4 => '9点12点'
+  }
+
   devise :database_authenticatable, :registerable,
          :rememberable, :trackable, :validatable, :lockable
 
@@ -54,5 +61,9 @@ class User < ApplicationRecord
 
   def status_text
     STATUSES[status]
+  end
+
+  def period_text
+    period ? PERIODS[period] : nil
   end
 end

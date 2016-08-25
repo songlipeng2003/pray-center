@@ -20,7 +20,8 @@ module V1
       expose :region_name, documentation: { type: 'String', desc: '代祷区域' } do |instance|
         instance.region ? instance.region.name : nil
       end
-      expose :period, documentation: { type: 'Integer', desc: '祷告时间段，1、2、3、4' }
+      expose :period, documentation: { type: 'Integer', desc: '祷告时间段' }
+      expose :period_text, documentation: { type: 'String', desc: '祷告时间段文字' }
       expose :created_at, documentation: { type: 'String', desc: '注册时间' }
       expose :invitation_code, documentation: { type: 'String', desc: '邀请码' }
       expose :status, documentation: { type: 'Integer', desc: '状态，0为未申请，1为申请中，2为已审核，-1为已拒绝' }

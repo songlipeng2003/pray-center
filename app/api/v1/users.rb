@@ -27,6 +27,21 @@ module V1
         present result
       end
 
+      desc "时间段选项", {
+        headers: {
+          "X-Access-Token" => {
+            description: "Token",
+            required: true
+          },
+        },
+        # http_codes: [
+        #   [200, '成功', Hash],
+        # ]
+      }
+      get :periods do
+        User::PERIODS
+      end
+
 
       desc "用户详情", {
         headers: {
@@ -80,7 +95,7 @@ module V1
         requires :church_service, type: String, desc: '教会服侍'
         requires :rebirth, type: String, desc: '信主时间'
         requires :region_id, type: Integer, desc: '代祷区域'
-        requires :period, type: Integer, values: [1, 2, 3, 4], desc: '代祷时段，1、2、3、4'
+        requires :period, type: Integer, values: User::PERIODS.keys, desc: '代祷时段，数据从/users/periods获取'
       end
       route_param :id do
         put do
