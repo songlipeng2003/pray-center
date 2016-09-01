@@ -166,6 +166,26 @@ module V1
         end
       end
 
+      desc '代祷列表',
+        http_codes: [
+          [201, '成功', V1::Entities::PrayHistory],
+          [401, '未授权', V1::Entities::Error],
+          [404, 'Not Found', V1::Entities::Error],
+        ]
+      params do
+        optional 'X-Access-Token', type: String, desc: 'Token', documentation: { in: :header }
+        requires :id, type: Integer, desc: "编号"
+      end
+      route_param :id do
+        get :pray do
+          authenticate!
+
+          post = Post.find(params[:id])
+
+          present post.pray_histories, with: V1::Entities::PrayHistory
+        end
+      end
+
       desc "删除帖子",
         http_codes: [
           [204, '成功'],
