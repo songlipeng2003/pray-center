@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160825024144) do
+ActiveRecord::Schema.define(version: 20160901102450) do
 
   create_table "active_admin_comments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "namespace"
@@ -113,8 +113,9 @@ ActiveRecord::Schema.define(version: 20160825024144) do
   create_table "pray_histories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "post_id"
     t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.boolean  "is_thanked", default: false
     t.index ["post_id"], name: "index_pray_histories_on_post_id", using: :btree
     t.index ["user_id"], name: "index_pray_histories_on_user_id", using: :btree
   end

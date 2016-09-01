@@ -135,57 +135,6 @@ module V1
         end
       end
 
-      desc "代祷",
-        http_codes: [
-          [201, '成功', V1::Entities::Post],
-          [401, '未授权', V1::Entities::Error],
-          [403, '没有权限', V1::Entities::Error],
-          [404, 'Not Found', V1::Entities::Error],
-          [422, '错误', V1::Entities::Error]
-        ]
-      params do
-        optional 'X-Access-Token', type: String, desc: 'Token', documentation: { in: :header }
-        requires :id, type: Integer, desc: "编号"
-      end
-      route_param :id do
-        put :pray do
-          authenticate!
-          check_user_info!
-
-          post = Post.find(params[:id])
-
-          pray_history = PrayHistory.where(user_id: current_user.id, post_id: params[:id]).first
-
-          if pray_history
-            error!('已经代祷，不能重复代祷', 422)
-          end
-
-          PrayHistory.create!(user_id: current_user.id, post_id: params[:id])
-
-          present post.reload, with: V1::Entities::Post, user: current_user
-        end
-      end
-
-      desc '代祷列表',
-        http_codes: [
-          [201, '成功', V1::Entities::PrayHistory],
-          [401, '未授权', V1::Entities::Error],
-          [404, 'Not Found', V1::Entities::Error],
-        ]
-      params do
-        optional 'X-Access-Token', type: String, desc: 'Token', documentation: { in: :header }
-        requires :id, type: Integer, desc: "编号"
-      end
-      route_param :id do
-        get :pray do
-          authenticate!
-
-          post = Post.find(params[:id])
-
-          present post.pray_histories, with: V1::Entities::PrayHistory
-        end
-      end
-
       desc "删除帖子",
         http_codes: [
           [204, '成功'],
@@ -205,6 +154,109 @@ module V1
           post.destroy
           status 204
           # { code: 0 }
+        end
+      end
+
+      params do
+        requires :id, type: Integer, desc: "帖子编码"
+      end
+      namespace ':id' do
+        namespace :prays do
+
+          desc '代祷列表',
+            http_codes: [
+              [201, '成功', V1::Entities::PrayHistory],
+              [401, '未授权', V1::Entities::Error],
+              [404, 'Not Found', V1::Entities::Error],
+            ]
+          params do
+            optional 'X-Access-Token', type: String, desc: 'Token', documentation: { in: :header }
+          end
+          get do
+            authenticate!
+
+            post = Post.find(params[:id])
+
+            present post.pray_histories, with: V1::Entities::PrayHistory
+          end
+
+          desc "代祷",
+            http_codes: [
+              [201, '成功', V1::Entities::PrayHistory],
+              [401, '未授权', V1::Entities::Error],
+              [403, '没有权限', V1::Entities::Error],
+              [404, 'Not Found', V1::Entities::Error],
+              [422, '错误', V1::Entities::Error]
+            ]
+          params do
+            optional 'X-Access-Token', type: String, desc: 'Token', documentation: { in: :header }
+          end
+          post do
+            authenticate!
+            check_user_info!
+
+            post = current_user.posts.find(params[:id])
+
+            pray_history = PrayHistory.where(user_id: current_user.id, post_id: params[:id]).first
+
+            if pray_history
+              error!('已经代祷，不能重复代祷', 422)
+            end
+
+            pray_history = PrayHistory.create!(user_id: current_user.id, post_id: params[:id])
+
+            present pray_history, with: V1::Entities::PrayHistory
+          end
+
+          desc '感谢代祷',
+            http_codes: [
+              [201, '成功', V1::Entities::PrayHistory],
+              [401, '未授权', V1::Entities::Error],
+              [403, '没有权限', V1::Entities::Error],
+              [404, 'Not Found', V1::Entities::Error],
+              [422, '错误', V1::Entities::Error]
+            ]
+          params do
+            optional 'X-Access-Token', type: String, desc: 'Token', documentation: { in: :header }
+            requires :history_id, type: Integer, desc: "编号"
+          end
+          route_param :history_id do
+            put :thank do
+              authenticate!
+              check_user_info!
+
+              post = current_user.posts.find(params[:id])
+              pray_history = post.pray_histories.find(params[:history_id])
+              if pray_history.is_thanked
+                error!('已经感谢代祷，不能重复感谢代祷', 422)
+              end
+              pray_history.is_thanked = true
+              pray_history.save
+
+              present pray_history, with: V1::Entities::PrayHistory
+            end
+          end
+
+          desc '批量感谢代祷',
+            http_codes: [
+              [201, '成功', V1::Entities::Result],
+              [401, '未授权', V1::Entities::Error],
+              [403, '没有权限', V1::Entities::Error],
+              [404, 'Not Found', V1::Entities::Error],
+              [422, '错误', V1::Entities::Error]
+            ]
+          params do
+            optional 'X-Access-Token', type: String, desc: 'Token', documentation: { in: :header }
+          end
+          post :batch_thank do
+            authenticate!
+            # check_user_info!
+
+            post = current_user.posts.find(params[:id])
+            post.pray_histories.update_all is_thanked: true
+
+            { result: true }
+          end
         end
       end
     end
