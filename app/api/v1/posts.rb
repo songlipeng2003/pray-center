@@ -162,7 +162,6 @@ module V1
       end
       namespace ':id' do
         namespace :prays do
-
           desc '代祷列表',
             http_codes: [
               [201, '成功', V1::Entities::PrayHistory],
@@ -255,7 +254,7 @@ module V1
           end
           post :batch_thank do
             authenticate!
-            # check_user_info!
+            check_user_info!
 
             post = current_user.posts.find(params[:id])
             post.pray_histories.update_all is_thanked: true
