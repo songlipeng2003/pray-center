@@ -169,15 +169,20 @@ module V1
               [401, '未授权', V1::Entities::Error],
               [404, 'Not Found', V1::Entities::Error],
             ]
+          paginate per_page: 10, max_per_page: 200
           params do
             optional 'X-Access-Token', type: String, desc: 'Token', documentation: { in: :header }
+            optional :page, type: Integer, default: 1, desc: "页码"
+            optional :per_page, type: Integer, default: 10, desc: '每页数量'
           end
           get do
             authenticate!
 
             post = Post.find(params[:id])
 
-            present post.pray_histories, with: V1::Entities::PrayHistory
+            result = paginate post.pray_histories
+
+            present result, with: V1::Entities::PrayHistory
           end
 
           desc "代祷",
