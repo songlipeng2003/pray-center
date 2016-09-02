@@ -66,4 +66,8 @@ class User < ApplicationRecord
   def period_text
     period ? PERIODS[period] : nil
   end
+
+  def level
+    score / 7 + 1
+  end
 end

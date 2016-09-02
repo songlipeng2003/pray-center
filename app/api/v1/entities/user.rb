@@ -25,6 +25,8 @@ module V1
       expose :created_at, documentation: { type: 'String', desc: '注册时间' }
       expose :invitation_code, documentation: { type: 'String', desc: '邀请码' }
       expose :status, documentation: { type: 'Integer', desc: '状态，0为未申请，1为申请中，2为已审核，-1为已拒绝' }
+      expose :score, documentation: { type: 'Integer', desc: '分数' }
+      expose :level, documentation: { type: 'String', desc: '等级' }
     end
   end
 end

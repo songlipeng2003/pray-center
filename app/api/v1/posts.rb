@@ -199,7 +199,7 @@ module V1
             authenticate!
             check_user_info!
 
-            post = current_user.posts.find(params[:id])
+            post = Post.find(params[:id])
 
             pray_history = PrayHistory.where(user_id: current_user.id, post_id: params[:id]).first
 
