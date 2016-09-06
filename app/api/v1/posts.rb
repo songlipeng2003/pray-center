@@ -157,6 +157,39 @@ module V1
         end
       end
 
+      desc "代祷",
+        http_codes: [
+          [201, '成功', V1::Entities::Post],
+          [401, '未授权', V1::Entities::Error],
+          [403, '没有权限', V1::Entities::Error],
+          [404, 'Not Found', V1::Entities::Error],
+          [422, '错误', V1::Entities::Error]
+        ]
+      params do
+        optional 'X-Access-Token', type: String, desc: 'Token', documentation: { in: :header }
+        requires :id, type: Integer, desc: "帖子编码"
+      end
+      route_param :id do
+        put :pray do
+          authenticate!
+          check_user_info!
+
+          post = Post.find(params[:id])
+
+          pray_history = PrayHistory.where(user_id: current_user.id, post_id: params[:id]).first
+
+          if pray_history
+            error!('已经代祷，不能重复代祷', 422)
+          end
+
+          pray_history = PrayHistory.create!(user_id: current_user.id, post_id: params[:id])
+
+          post.reload
+
+          present post, with: V1::Entities::Post, user: current_user
+        end
+      end
+
       params do
         requires :id, type: Integer, desc: "帖子编码"
       end
